@@ -7,8 +7,8 @@
 </head><body>
 <header class="hero">
   <div class="brand"><span class="spark">✦</span> Spark AI NLP · Evidence Lab</div>
-  <h1>A lab that shows when my own methods <span class="gold">fail</span>.</h1>
-  <p class="lede">Each card is one experiment from my public repositories: the claim tested, the conditions, the difference against a baseline with its uncertainty, and a verdict. The failures stay on the page next to the passes. Every number comes from a committed file at the commit shown.</p>
+  <h1>My methods, side by side with <span class="gold">simple baselines</span>.</h1>
+  <p class="lede">Each card is one experiment from my public repositories: what was tested, under which conditions, how it compares with a reference (with its uncertainty), and where it stands. Some results reproduced, in some a simpler baseline did better, and some are still open. They all stay on the page, and every number comes from a committed file at the commit shown.</p>
   <div class="score" id="score"></div>
   <p class="scope">Research software. Synthetic data is labelled synthetic. No claims of quantum error correction, quantum advantage, hardware performance or consciousness.</p>
 </header>
@@ -18,6 +18,6 @@
   <p><strong>Jean-François Brisson</strong> · Fredericton, New Brunswick, Canada · <a href="https://orcid.org/0009-0000-9778-5374">ORCID 0009-0000-9778-5374</a> · <a href="https://sparkainlpx.xyz">Spark AI NLP</a> · <a href="https://github.com/sparkainlp-x">github.com/sparkainlp-x</a></p>
   <p>Static page, no backend, no tracking; it works offline once loaded. The live replays run in your browser on synthetic data. Built with Grok Bot. Source: <a href="https://github.com/sparkainlp-x/spark-evidence-lab">sparkainlp-x/spark-evidence-lab</a> (AGPL-3.0-only).</p>
 </section>
-<footer>Verdicts: <b class="v PASS">PASS</b> criterion met · <b class="v FAIL">FAIL</b> criterion not met · <b class="v REVIEW">NEEDS REVIEW</b> no criterion yet, simulation only or fragile.</footer>
+<footer>Labels: <b class="v REPRODUCED">Reproduced</b> result or criterion confirmed · <b class="v BASELINE">Baseline stronger</b> a simpler reference scored higher or the predeclared criterion was not met · <b class="v OPEN">Open question</b> simulation only or not yet independently checked · <b class="v EXPLORATORY">Exploratory</b> synthetic demo with no baseline yet.</footer>
 <script src="data.js"></script><script src="residual.js"></script><script src="app.js"></script>
 </body></html>

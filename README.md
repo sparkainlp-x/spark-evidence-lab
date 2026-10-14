@@ -1,6 +1,6 @@
 # Spark Evidence Lab
 
-**A lab that shows when my own methods fail.** Live: **https://sparkainlp-x.github.io/spark-evidence-lab/**
+**My methods, side by side with simple baselines, including where the baseline wins.** Live: **https://sparkainlp-x.github.io/spark-evidence-lab/**
 
 [![ci](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/ci.yml)
 [![pages](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/pages.yml/badge.svg)](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/pages.yml)
@@ -8,17 +8,17 @@
 
 ![Spark Evidence Lab](screenshot.png)
 
-Each card is one experiment from my public repositories. It shows the **claim tested**, the **conditions**, the **difference against a baseline with its uncertainty**, a **verdict** (PASS / FAIL / NEEDS REVIEW), links to the code at an exact commit, the DOI where one exists, what is still needed to verify it, and the commands to rerun it from a clean checkout. Every number is copied from a committed file in the source repository; nothing is estimated here.
+Each card is one experiment from my public repositories. It shows the **claim tested**, the **conditions**, the **difference against a baseline with its uncertainty**, a **status** (Reproduced / Baseline stronger / Open question / Exploratory), a short *What I learned* line, links to the code at an exact commit, the DOI where one exists, the next step, and the commands to rerun it from a clean checkout. Every number is copied from a committed file in the source repository; nothing is estimated here.
 
 | # | Experiment | Source (commit) | Verdict |
 |---|---|---|---|
-| 1 | Blind NASA SMAP/MSL test, OES32 v1 vs baselines | [oes-resilience `e3e03d5`](https://github.com/sparkainlp-x/oes-resilience/blob/e3e03d5cc6b54e9d9818fd83d7a1e041f6800224/reports/smap_msl_results/smap_msl_summary.csv) | FAIL |
-| 2 | OES-32-v2 locked re-attempt | [oes-resilience `79edb72`](https://github.com/sparkainlp-x/oes-resilience/blob/79edb72c861fa487ec63e14f9d10d0a55525d513/oes32-v2/reports/OES32_V2_REPORT.md) | FAIL |
-| 3 | qbench transpiler comparison (simulator only) | [oes-resilience PR #5 `0e11656`](https://github.com/sparkainlp-x/oes-resilience/blob/0e1165610e2ddb6445fec507b95d8b7a7f8b2979/examples/qbench_sample/qbench_report.md) | NEEDS REVIEW |
-| 4 | OES-32 residual JS port + live replay | [oes32-residual `136f258`](https://github.com/sparkainlp-x/oes32-residual/blob/136f2584c8e81d31edbe418652eed1616cd498cd/residual_definition.md) | PASS |
-| 5 | OES-512 synthetic 512-channel stream | [oes512-telemetry-engine `95d99a1`](https://github.com/sparkainlp-x/oes512-telemetry-engine/blob/95d99a16c61ef700a58f668e35e61ad051e4d8cc/main.py) | NEEDS REVIEW |
-| 6 | Digital to Wave Part II THz validity check | [digital-to-wave-2-thz-validity `c8721fa`](https://github.com/sparkainlp-x/digital-to-wave-2-thz-validity/blob/c8721fa8974d92db66f696e6006460b84e0f70c2/README.md) | NEEDS REVIEW |
-| 7 | Surface-code memory toy (Stim + PyMatching) | [qec-scaling-bench `0125bdb`](https://github.com/sparkainlp-x/qec-scaling-bench/blob/0125bdb475cbbc7886f075ef2dd8055d97d5f7ad/results/scaling_sweep_seed_1823.json) | NEEDS REVIEW |
+| 1 | Blind NASA SMAP/MSL test, OES32 v1 vs baselines | [oes-resilience `e3e03d5`](https://github.com/sparkainlp-x/oes-resilience/blob/e3e03d5cc6b54e9d9818fd83d7a1e041f6800224/reports/smap_msl_results/smap_msl_summary.csv) | Baseline stronger |
+| 2 | OES-32-v2 locked re-attempt | [oes-resilience `79edb72`](https://github.com/sparkainlp-x/oes-resilience/blob/79edb72c861fa487ec63e14f9d10d0a55525d513/oes32-v2/reports/OES32_V2_REPORT.md) | Baseline stronger |
+| 3 | qbench transpiler comparison (simulator only) | [oes-resilience PR #5 `0e11656`](https://github.com/sparkainlp-x/oes-resilience/blob/0e1165610e2ddb6445fec507b95d8b7a7f8b2979/examples/qbench_sample/qbench_report.md) | Open question |
+| 4 | OES-32 residual JS port + live replay | [oes32-residual `136f258`](https://github.com/sparkainlp-x/oes32-residual/blob/136f2584c8e81d31edbe418652eed1616cd498cd/residual_definition.md) | Reproduced |
+| 5 | OES-512 synthetic 512-channel stream | [oes512-telemetry-engine `95d99a1`](https://github.com/sparkainlp-x/oes512-telemetry-engine/blob/95d99a16c61ef700a58f668e35e61ad051e4d8cc/main.py) | Exploratory |
+| 6 | Digital to Wave Part II THz validity check | [digital-to-wave-2-thz-validity `c8721fa`](https://github.com/sparkainlp-x/digital-to-wave-2-thz-validity/blob/c8721fa8974d92db66f696e6006460b84e0f70c2/README.md) | Open question |
+| 7 | Surface-code memory toy (Stim + PyMatching) | [qec-scaling-bench `0125bdb`](https://github.com/sparkainlp-x/qec-scaling-bench/blob/0125bdb475cbbc7886f075ef2dd8055d97d5f7ad/results/scaling_sweep_seed_1823.json) | Open question |
 
 ## Scope
 

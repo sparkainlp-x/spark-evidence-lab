@@ -1,7 +1,7 @@
 "use strict";
 const L = window.LAB, GH = "https://github.com/sparkainlp-x/", $ = (s, r = document) => r.querySelector(s);
-const C = { gold:"#c9a84c", cyan:"#38d6e8", red:"#ff6b6b", green:"#4cd28a", amber:"#f0b44a", mut:"#9fb0cf", line:"#22345a", txt:"#e6ecf7" };
-const VL = { PASS:"PASS", FAIL:"FAIL", REVIEW:"NEEDS REVIEW" };
+const C = { gold:"#c9a84c", cyan:"#38d6e8", red:"#b7c3da", green:"#4cd28a", amber:"#f0b44a", mut:"#9fb0cf", line:"#22345a", txt:"#e6ecf7" };
+const VL = { REPRODUCED:"Reproduced", BASELINE:"Baseline stronger", OPEN:"Open question", EXPLORATORY:"Exploratory" };
 const esc = s => String(s).replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]));
 function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function gauss(r) { let u = 0, v = 0; while (!u) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
@@ -34,49 +34,49 @@ const legend = items => `<div class="ctl">${items.map(([c, t]) => `<span><b styl
 
 // ---------- experiments ----------
 const EXP = [
- { id:"smap", verdict:"FAIL", tags:["real public data","NASA SMAP/MSL"], title:"Blind NASA SMAP/MSL test: OES32 v1 vs simple baselines",
+ { id:"smap", learned:'On this data the plain max|x| over the window did at least as well as OES32; the extra weighting showed no measurable gain.', verdict:"BASELINE", tags:["real public data","NASA SMAP/MSL"], title:"Blind NASA SMAP/MSL test: OES32 v1 vs simple baselines",
    claim:"OES32 detects real spacecraft telemetry anomalies better than simple baselines (preregistered success criterion).",
    cond:"Hundman et al. 2018 SMAP (54 channels, 68 events) and MSL (27 channels, 36 events); protocol locked and pushed before test scoring; train-only thresholds at a 1% false-positive target; pooled event-level F1 with 95% bootstrap CIs.",
    diff:"SMAP: OES32 0.379 vs max|x| 0.475. MSL: OES32 0.435 vs max|x| 0.500 and CUSUM 0.514. Differences vs the better baselines are not significant; OES32 was significantly better only than EWMA on SMAP.",
    need:"An external timestamp for the protocol lock (it is self-timestamped ~10 minutes before the results merged) and an independent rerun.",
    repo:"oes-resilience", sha:"e3e03d5cc6b54e9d9818fd83d7a1e041f6800224", path:"reports/smap_msl_results/smap_msl_summary.csv", doi:"10.5281/zenodo.23128059",
    rerun:`git clone https://github.com/sparkainlp-x/oes-resilience && cd oes-resilience\ngit checkout e3e03d5\npip install -e .\npython scripts/fetch_smap_msl.py   # downloads public data, verifies SHA-256\npytest tests/test_smap_msl.py`, render: renderSmap },
- { id:"v2", verdict:"FAIL", tags:["real public data","locked protocol"], title:"OES-32-v2: a second attempt, also failed",
+ { id:"v2", learned:'A wider validation search did not transfer to the real test split; tuning on synthetic injections was not enough.', verdict:"BASELINE", tags:["real public data","locked protocol"], title:"OES-32-v2: a second attempt, also failed",
    claim:"A validation-selected v2 detector improves event F1 over frozen v1 by at least +0.05 on both SMAP and MSL.",
    cond:"4,223 validation-only trials on synthetic injections, frozen config, test split run exactly once (protocol 8b474b6, test lock 5477ffb, run 7b46a3b).",
    diff:"v2 − v1 event F1: −0.166 on SMAP (0.213 vs 0.379), −0.001 on MSL (0.434 vs 0.435). Required: +0.05 on each. Runtime 2.27× v1 against a 2× limit.",
    need:"Nothing to rescue here: the criterion was predeclared and missed. Kept as a documented negative result.",
    repo:"oes-resilience", sha:"79edb72c861fa487ec63e14f9d10d0a55525d513", path:"oes32-v2/reports/OES32_V2_REPORT.md", doi:"10.5281/zenodo.23071166",
    rerun:`git clone https://github.com/sparkainlp-x/oes-resilience && cd oes-resilience\ngit checkout 79edb72\ncat oes32-v2/reports/OES32_V2_REPORT.md   # protocol, trial log, frozen config, results`, render: renderV2 },
- { id:"qbench", verdict:"REVIEW", tags:["SIMULATOR ONLY","synthetic noise"], title:"qbench: does heavier transpiler optimisation help? It depends how you block.",
+ { id:"qbench", learned:'The gain is concentrated in one circuit family, so how the data is blocked decides whether it looks significant.', verdict:"OPEN", tags:["SIMULATOR ONLY","synthetic noise"], title:"qbench: does heavier transpiler optimisation help? It depends how you block.",
    claim:"Qiskit transpiler optimisation level 3 gives higher Hellinger fidelity than level 1 under a synthetic noise model.",
    cond:"Qiskit Aer simulator only; GHZ, Bernstein-Vazirani and QFT at widths 3-5; 4 seed batches; 2,000 shots; 108 runs; plan SHA-256 self-recorded before the first run; paired block bootstrap.",
    diff:"+0.0187 [+0.0053, +0.0324] with the preregistered 12 blocks. Grouping by circuit family alone: [+0.0000, +0.0538], not significant. Nearly all of the gain is from QFT (+0.0538).",
    need:"An externally timestamped plan (Zenodo/OSF), real-hardware runs with calibration snapshots, and more families so a family-level interval is meaningful.",
    repo:"oes-resilience", sha:"0e1165610e2ddb6445fec507b95d8b7a7f8b2979", branch:"qbench-evidence-layer (PR #5, unmerged)", path:"examples/qbench_sample/qbench_report.md", doi:null,
    rerun:`git clone https://github.com/sparkainlp-x/oes-resilience && cd oes-resilience\ngit checkout 0e11656   # branch qbench-evidence-layer\npip install -e '.[quantum]'\npytest -q tests -k qbench\n# outputs: examples/qbench_sample/`, render: renderQbench },
- { id:"residual", verdict:"PASS", tags:["live in your browser","synthetic stream"], title:"OES-32 residual, ported to JavaScript and replayed live",
+ { id:"residual", learned:'The residual is simple enough to port exactly; on a slow drift, max-abs reacts later than EWMA or CUSUM.', verdict:"REPRODUCED", tags:["live in your browser","synthetic stream"], title:"OES-32 residual, ported to JavaScript and replayed live",
    claim:"The in-browser JS port computes exactly the normative OES-32 residual: R = max|y−x| over 32 values, FAIL iff R > tolerance (strict).",
    cond:"Contract vectors generated by the Python reference (oes32-residual 136f258) and checked bit-exact by node:test in CI, plus invalid-input rejection.",
    diff:"45 of 45 valid vectors identical (component residuals, aggregate and status); all invalid inputs rejected. The replay below is a synthetic illustration, not a benchmark.",
    need:"The replay's EWMA/CUSUM settings are illustrative and uncalibrated; the slow-drift weakness is shown, not measured.",
    repo:"oes32-residual", sha:"136f2584c8e81d31edbe418652eed1616cd498cd", path:"residual_definition.md", doi:"10.5281/zenodo.22985520",
    rerun:`git clone https://github.com/sparkainlp-x/spark-evidence-lab && cd spark-evidence-lab\ngit clone https://github.com/sparkainlp-x/oes32-residual /tmp/oes32-residual\npython3 tools/gen_vectors.py /tmp/oes32-residual > tests/vectors.json\nnode --test tests/`, render: renderResidual },
- { id:"oes512", verdict:"REVIEW", tags:["SYNTHETIC","not hardware"], title:"OES-512: 512-channel synthetic stream, filtered and summarised",
+ { id:"oes512", learned:'The summaries react to shared structure, and the notch keeps mains hum from looking like coherence. That is behaviour, not evidence.', verdict:"EXPLORATORY", tags:["SYNTHETIC","not hardware"], title:"OES-512: 512-channel synthetic stream, filtered and summarised",
    claim:"The coherence / instability / drift summaries respond to injected structure in a synthetic 512-channel stream.",
    cond:"Synthetic 250 Hz stream generated in your browser; 50 Hz notch + 0.5-45 Hz band-pass (biquads, a JS approximation of the repo's SciPy SOS filters); metric definitions mirror main.py: coherence = mean |Pearson r| over every 16th channel, instability = std of channel variances, drift = norm of mean-profile shift from the first window.",
    diff:"No baseline comparison exists yet. The metrics are plain statistics of synthetic data, not measurements of any system.",
    need:"A predeclared detection task with ground truth and a baseline (for example max|x| per block) before any claim.",
    repo:"oes512-telemetry-engine", sha:"95d99a16c61ef700a58f668e35e61ad051e4d8cc", path:"main.py", doi:"10.5281/zenodo.23307953",
    rerun:`git clone https://github.com/sparkainlp-x/oes512-telemetry-engine && cd oes512-telemetry-engine\npip install -r requirements.txt -r requirements-dev.txt\npytest -q && python main.py`, render: renderOes512 },
- { id:"thz", verdict:"REVIEW", tags:["SYNTHETIC","protocol-locked"], title:"Digital to Wave Part II: THz channel validity check",
+ { id:"thz", learned:'Writing the equations as code made the depth and intensity limits concrete; the simulator agrees with the closed form.', verdict:"OPEN", tags:["SYNTHETIC","protocol-locked"], title:"Digital to Wave Part II: THz channel validity check",
    claim:"The THz human-wave-interface equations of the Part II preprint describe an engineering-plausible channel.",
    cond:"Equation inventory by PDF page, dimension checks with assumptions that favour the paper, and a seeded synthetic channel benchmark (master seed 20261013, run from lock commit 6ff37d6). 12,000 frames per cell.",
    diff:"One equation (p. 29) fails the dimension check. Required surface intensity is 10^10.8 × the ICNIRP long-exposure skin limit. Even the oracle receiver collapses between 30 and 100 µm depth (9,749 → 892 → 0 of 12,000). Simulator vs closed form: 73 of 75 cells inside the 95% interval.",
    need:"Review by the source author or a THz/biophysics specialist; the source author has not reviewed it. Not a safety assessment.",
    repo:"digital-to-wave-2-thz-validity", sha:"c8721fa8974d92db66f696e6006460b84e0f70c2", path:"README.md", doi:null,
    rerun:`git clone https://github.com/sparkainlp-x/digital-to-wave-2-thz-validity && cd digital-to-wave-2-thz-validity\npip install -e '.[test]'\nsha256sum -c MODULES.sha256\ntools/reproduce_all.sh   # ~20 s, regenerates artifacts/`, render: renderThz },
- { id:"qec", verdict:"REVIEW", tags:["CLASSICAL TOY SIMULATION","Stim + PyMatching"], title:"Surface-code memory toy: failures vs code distance",
+ { id:"qec", learned:'The toy behaves as textbook theory expects, and low-noise points need many more shots to say anything precise.', verdict:"OPEN", tags:["CLASSICAL TOY SIMULATION","Stim + PyMatching"], title:"Surface-code memory toy: failures vs code distance",
    claim:"In this idealised circuit-noise model, the simulated per-round failure estimate of the rotated surface code falls as distance grows.",
    cond:"Stim 1.16.0 + PyMatching 2.4.0 on a classical CPU; d = 3, 5, 7; R = 4d rounds; 20,000 shots per condition; seed 1823; held-out profile with two extra seeds.",
    diff:"Holds at every tested noise point; the d3→5 ratio shrinks from 9.2 to 1.17 as noise rises. No crossing reached, so no threshold is estimated. At the center point d=3 fails more often than the unencoded row.",
@@ -182,14 +182,15 @@ function renderQec(el) { const q = L.qec;
     + `<div class="ctl">Surface-code ratio q(d=3) / q(d=5) with 95% bootstrap CI per (gate, readout) noise point; failures out of 20,000 at d = 3/5/7. Classical toy simulation.</div>`; }
 
 // ---------- page ----------
-const counts = { PASS: 0, FAIL: 0, REVIEW: 0 }; EXP.forEach(e => counts[e.verdict]++);
-$("#score").innerHTML = `<div><b>${EXP.length}</b><span>experiments</span></div><div><b style="color:${C.green}">${counts.PASS}</b><span>pass</span></div><div><b style="color:${C.red}">${counts.FAIL}</b><span>fail</span></div><div><b style="color:${C.amber}">${counts.REVIEW}</b><span>needs review</span></div>`;
+const counts = { REPRODUCED: 0, BASELINE: 0, OPEN: 0, EXPLORATORY: 0 }; EXP.forEach(e => counts[e.verdict]++);
+$("#score").innerHTML = `<p class="scoreline">${EXP.length} experiments · ${counts.REPRODUCED} reproduced · ${counts.BASELINE} where a simpler baseline won · ${counts.OPEN + counts.EXPLORATORY} open</p>`;
 const main = $("#cards");
 EXP.forEach((e, i) => { const el = document.createElement("article"); el.className = "card"; el.id = e.id;
   el.innerHTML = `<span class="v ${e.verdict}">${VL[e.verdict]}</span><div>${e.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div><h2>${i + 1}. ${esc(e.title)}</h2>
-  <dl class="facts"><dt>Claim tested</dt><dd>${esc(e.claim)}</dd><dt>Conditions</dt><dd>${esc(e.cond)}</dd><dt>Difference vs baseline</dt><dd>${esc(e.diff)}</dd><dt>Verdict</dt><dd><b class="${e.verdict}">${VL[e.verdict]}</b></dd></dl>
+  <dl class="facts"><dt>Claim tested</dt><dd>${esc(e.claim)}</dd><dt>Conditions</dt><dd>${esc(e.cond)}</dd><dt>Difference vs baseline</dt><dd>${esc(e.diff)}</dd><dt>Where it stands</dt><dd><b class="${e.verdict}">${VL[e.verdict]}</b></dd></dl>
   <div class="ctls"></div><div class="viz"></div>
-  <p class="need">Still needed to verify: ${esc(e.need)}</p>
+  <p class="learn">What I learned: ${esc(e.learned)}</p>
+  <p class="need">Next step: ${esc(e.need)}</p>
   <p class="links">Code <a href="${GH}${e.repo}/tree/${e.sha}">${e.repo}</a>${e.branch ? " · " + esc(e.branch) : ""} · commit <a href="${GH}${e.repo}/commit/${e.sha}"><code>${e.sha.slice(0, 7)}</code></a> · source <a href="${GH}${e.repo}/blob/${e.sha}/${e.path}"><code>${esc(e.path)}</code></a>${e.doi ? ` · DOI <a href="https://doi.org/${e.doi}">${e.doi}</a>` : " · no DOI yet"}</p>
   <details><summary>How to rerun from a clean checkout</summary><pre>${esc(e.rerun)}</pre></details>`;
   main.appendChild(el); try { e.render(el); } catch (err) { $(".viz", el).textContent = "Visualisation failed: " + err.message; } });

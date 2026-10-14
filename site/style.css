@@ -9,7 +9,7 @@ a{color:var(--cyan)}.gold{color:var(--gold)}
 main{max-width:1100px;margin:auto;padding:0 20px;display:grid;gap:22px}
 .card{background:linear-gradient(180deg,#13244a,var(--panel));border:1px solid var(--line);border-radius:18px;padding:22px}
 .card h2{margin:.1em 0 .2em;font-size:1.3rem}.tag{font-size:.72rem;color:var(--cyan);border:1px solid var(--cyan);border-radius:99px;padding:1px 8px;margin-right:6px}
-.v{font-size:.8rem;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:99px;float:right}.v.PASS{background:#123f2b;color:var(--green)}.v.FAIL{background:#4a1820;color:var(--red)}.v.REVIEW{background:#4a3712;color:var(--amber)}
+.v{font-size:.8rem;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:99px;float:right}.v.REPRODUCED{background:#3a3015;color:var(--gold)}.v.BASELINE{background:#0f3540;color:var(--cyan)}.v.OPEN,.v.EXPLORATORY{background:#26314a;color:#b7c3da}
 footer .v{float:none}
 dl.facts{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:14px 0}dl.facts dt{color:var(--gold);font-weight:600;font-size:.86rem}dl.facts dd{margin:0}
 .viz{background:#0b1730;border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}.viz svg,.viz canvas{width:100%;height:auto;display:block}
@@ -17,7 +17,7 @@ dl.facts{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:14px 0
 .ctl input[type=range]{accent-color:var(--gold);width:130px}button.t{background:#0b1730;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:.85rem}
 button.t.on{border-color:var(--gold);color:var(--gold)}
 details{margin-top:8px}summary{cursor:pointer;color:var(--cyan)}pre{background:#060e1f;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:.8rem}
-.links{font-size:.85rem;color:var(--mut)}.links code{color:var(--txt)}.need{font-size:.88rem;color:var(--amber)}
+.links{font-size:.85rem;color:var(--mut)}.links code{color:var(--txt)}.need{font-size:.88rem;color:var(--mut)}.learn{font-size:.92rem;color:var(--txt);border-left:3px solid var(--gold);padding-left:10px}.scoreline{font-size:1.1rem;color:var(--txt);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px;display:inline-block;margin:0}
 .about,footer{max-width:1100px;margin:30px auto;padding:0 20px;color:var(--mut)}footer{padding-bottom:40px;font-size:.85rem}
 @media(max-width:640px){dl.facts{grid-template-columns:1fr}.v{float:none;display:inline-block;margin-bottom:6px}.hero{padding-top:28px}}
 .card canvas{width:100%;height:auto;border-radius:8px;margin-top:6px}
