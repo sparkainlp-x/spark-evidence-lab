@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this lab, please cite it as below."
+title: "Spark Evidence Lab: rerunnable experiment cards with honest verdicts"
+type: software
+authors:
+  - family-names: "Brisson"
+    given-names: "Jean-François"
+    affiliation: "Spark AI NLP"
+    orcid: "https://orcid.org/0009-0000-9778-5374"
+repository-code: "https://github.com/sparkainlp-x/spark-evidence-lab"
+url: "https://sparkainlp-x.github.io/spark-evidence-lab/"
+license: AGPL-3.0-only
+version: "0.1.0"
+date-released: "2026-10-13"
+abstract: >-
+  Static browser lab that presents experiments from the author's open research
+  repositories as cards (claim, conditions, difference vs baseline with
+  uncertainty, verdict), including failed results. Synthetic data is labelled
+  synthetic. No quantum error correction, quantum advantage, hardware or
+  consciousness claims.
+keywords: [reproducibility, negative-results, anomaly-detection, research-software, evidence]

@@ -1,0 +1,21 @@
+name: ci
+on: [push, pull_request]
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Regenerate contract vectors from the Python reference and compare
+        run: |
+          git clone -q https://github.com/sparkainlp-x/oes32-residual /tmp/oes32-residual
+          git -C /tmp/oes32-residual checkout -q "$(python3 -c "import json;print(json.load(open('tests/vectors.json'))['commit'])")"
+          python3 tools/gen_vectors.py /tmp/oes32-residual > /tmp/vectors.json
+          diff -q tests/vectors.json /tmp/vectors.json
+      - run: npm test
+      - run: npm run build
+      - run: npm run links

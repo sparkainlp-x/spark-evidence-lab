@@ -1,0 +1,6 @@
+dist/
+node_modules/
+full.png
+demo.*
+linkedin-post.md
+__pycache__/

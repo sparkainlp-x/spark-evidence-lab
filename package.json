@@ -1,0 +1,2 @@
+{ "name": "spark-evidence-lab", "version": "0.1.0", "private": true, "license": "AGPL-3.0-only",
+  "scripts": { "test": "node --test tests/", "links": "node tools/check_links.mjs", "build": "node tools/build.mjs" } }
