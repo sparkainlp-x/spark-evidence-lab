@@ -21,3 +21,4 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--cyan)}pre{background:#
 .about,footer{max-width:1100px;margin:30px auto;padding:0 20px;color:var(--mut)}footer{padding-bottom:40px;font-size:.85rem}
 @media(max-width:640px){dl.facts{grid-template-columns:1fr}.v{float:none;display:inline-block;margin-bottom:6px}.hero{padding-top:28px}}
 .card canvas{width:100%;height:auto;border-radius:8px;margin-top:6px}
+main{grid-template-columns:minmax(0,1fr)}.card{min-width:0;overflow-wrap:anywhere}.ctl label{white-space:nowrap}
