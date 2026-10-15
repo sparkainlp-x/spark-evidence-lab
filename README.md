@@ -5,6 +5,7 @@
 [![ci](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/ci.yml)
 [![pages](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/pages.yml/badge.svg)](https://github.com/sparkainlp-x/spark-evidence-lab/actions/workflows/pages.yml)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23403169.svg)](https://doi.org/10.5281/zenodo.23403169)
 
 ![Spark Evidence Lab](screenshot.png)
 
@@ -42,4 +43,4 @@ Jean-François Brisson, Fredericton, New Brunswick, Canada · [ORCID 0009-0000-9
 
 ## License
 
-AGPL-3.0-only ([LICENSE](LICENSE)); commercial licensing in [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md). Cite with [CITATION.cff](CITATION.cff).
+AGPL-3.0-only ([LICENSE](LICENSE)); commercial licensing in [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md). Cite with [CITATION.cff](CITATION.cff). Archived on Zenodo: concept DOI [10.5281/zenodo.23403169](https://doi.org/10.5281/zenodo.23403169) (all versions). Version DOI for v0.1.0: [10.5281/zenodo.23403170](https://doi.org/10.5281/zenodo.23403170).

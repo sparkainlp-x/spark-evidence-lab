@@ -12,6 +12,14 @@ url: "https://sparkainlp-x.github.io/spark-evidence-lab/"
 license: AGPL-3.0-only
 version: "0.1.0"
 date-released: "2026-10-15"
+doi: "10.5281/zenodo.23403169"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23403169"
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: "10.5281/zenodo.23403170"
+    description: "Version DOI for v0.1.0"
 abstract: >-
   Static browser lab that presents experiments from the author's open research
   repositories as cards (claim, conditions, difference vs baseline with
