@@ -1,0 +1,57 @@
+{
+  "upload_type": "software",
+  "title": "Spark Evidence Lab: rerunnable experiment cards with honest verdicts",
+  "version": "0.1.0",
+  "description": "<p>Spark Evidence Lab is a static browser lab that presents experiments from the author's open research repositories as cards: the claim tested, the conditions, the difference against a simple baseline with its uncertainty, a status (Reproduced / Baseline stronger / Open question / Exploratory), links to the source code at an exact commit, and the commands to rerun it. Failed and negative results are included. Every number is copied from a committed file in the source repository.</p><p>A JavaScript port of the OES-32 residual is checked bit-exact against contract vectors generated from the Python reference in oes32-residual.</p><p>Scope: research software. Synthetic data is labelled synthetic; one card is simulator-only and one is a classical toy simulation. Nothing here claims quantum error correction, a threshold, quantum advantage, hardware performance or consciousness.</p><p>No runtime dependencies, no build step, no backend. Node tests and a link check run in GitHub Actions. License: AGPL-3.0-only.</p>",
+  "creators": [
+    {
+      "name": "Brisson, Jean-François",
+      "affiliation": "Spark AI NLP, Fredericton, New Brunswick, Canada",
+      "orcid": "0009-0000-9778-5374"
+    }
+  ],
+  "access_right": "open",
+  "license": "AGPL-3.0-only",
+  "language": "eng",
+  "keywords": [
+    "research software",
+    "reproducibility",
+    "negative results",
+    "anomaly detection",
+    "evidence",
+    "JavaScript",
+    "New Brunswick"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/sparkainlp-x/spark-evidence-lab",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.23071166",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.22985520",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.23307953",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.23375690",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.23241631",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ]
+}
